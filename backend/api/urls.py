@@ -6,7 +6,6 @@ urlpatterns = [
     path('token/', views.MyTokenView.as_view(), name='token'),
     path('token/refresh/', TokenRefreshView.as_view(), name='refresh'),
     path('register/', views.RegisterView.as_view(), name='register'),
-    path('dashboard/', views.dashboard),
     path('test/', views.testEndPoint, name='test'),
     path('', views.getRoutes),
 ]

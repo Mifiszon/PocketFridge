@@ -5,6 +5,14 @@ import { Link } from 'react-router-dom'
 
 function Navbar() {
 
+  const {user, logout} = useContext(AuthContext)
+  const token = localStorage.getItem("authTokens")
+
+  if (token) {
+    const decoded = jwtDecode(token)
+    var user_id = decoded.user_id
+  }
+
   return (
     <div>
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
@@ -21,18 +29,26 @@ function Navbar() {
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
-                <li class="nav-item">
-                  <a class="nav-link" to="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" to="/register">Register</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/dashboard">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" style={{cursor:"pointer"}}>Logout</a>
-                </li>
+              {token === null && 
+                <>
+                  <li class="nav-item">
+                    <Link class="nav-link" to="/login">Login</Link>
+                  </li>
+                  <li class="nav-item">
+                    <Link class="nav-link" to="/register">Register</Link>
+                  </li>
+                </>
+              }
+              {token !== null && 
+                <>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/dashboard">Dashboard</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" onClick={logout} style={{cursor:"pointer"}}>Logout</a>
+                  </li>
+                </>
+              }
             </ul>
           </div>
         </div>
