@@ -19,7 +19,6 @@ function Navbar() {
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
             <img style={{width:"50px", padding:"6px"}} src="https://i.imgur.com/yTpdSsc.png" alt="logo" />
-
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,7 +26,7 @@ function Navbar() {
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <Link class="nav-link active" aria-current="page" to="/">Home</Link>
               </li>
               {token === null && 
                 <>
