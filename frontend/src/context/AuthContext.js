@@ -2,6 +2,8 @@ import { createContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
+const swal = require('sweetalert2')
+
 const AuthContext = createContext();
 
 export default AuthContext;
@@ -36,8 +38,26 @@ export const AuthProvider = ({ children }) => {
             setUser(jwtDecode(data.access));
             localStorage.setItem("authTokens", JSON.stringify(data));
             navigate("/");
+            swal.fire({
+                title: "Login Successful",
+                icon: "success",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
         } else {
             alert("Something went wrong: " + response.status);
+            swal.fire({
+                title: "An Error Occured, Try Again",
+                icon: "error",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
         }
     };
 
@@ -50,8 +70,26 @@ export const AuthProvider = ({ children }) => {
 
         if (response.status === 201) {
             navigate("/login");
+            swal.fire({
+                title: "Registration Successful, Login Now",
+                icon: "success",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
         } else {
             alert("Something went wrong: " + response.status);
+            swal.fire({
+                title: "An Error Occured, Try Again",
+                icon: "error",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
         }
     };
 
@@ -60,6 +98,15 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         localStorage.removeItem("authTokens");
         navigate("/login");
+        swal.fire({
+            title: "You have been logged out",
+            icon: "success",
+            toast: true,
+            timer: 6000,
+            position: 'top-right',
+            timerProgressBar: true,
+            showConfirmButton: false,
+        })
     };
 
     const contextData = { user, setUser, authTokens, setAuthTokens, register, login, logout };
