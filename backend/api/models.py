@@ -2,6 +2,23 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 
+UNITS = [
+    ('g', 'gramy'),
+    ('kg', 'kilogramy'),
+    ('ml', 'mililitry'),
+    ('l', 'litry'),
+    ('szt', 'sztuki'),
+    ('opak', 'opakowanie'),
+]
+
+STATUS = [
+    ('fresh', 'Świeże'),
+    ('opened', 'Otwarte'),
+    ('expired', 'Przeterminowane'),
+    ('used', 'Zużyte'),
+]
+
+
 class User(AbstractUser):
     username = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
@@ -21,6 +38,23 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.full_name
+    
+class Product(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    addDate = models.DateTimeField(auto_now_add=True)
+    expirationDate = models.DateTimeField()
+    quantity = models.FloatField()
+    unit = models.CharField(max_length=100, choices=UNITS, default='szt')
+    category = models.CharField(max_length=200)
+    openDate = models.DateTimeField(null=True, blank=True)
+    status = models.CharField(max_length=100, choices=STATUS, default='fresh')
+    reminder = models.IntegerField(default=3)
+    
+    def __str__(self):
+        return self.name
+    
+
     
 def create_user_prof(sender, instance, created, **kwargs):
     if created:
