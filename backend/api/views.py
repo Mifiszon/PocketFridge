@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from api.models import User, Profile
-from api.serializer import UserSerializer, MyTokenSerializer, RegisterSerializer
+from api.models import User, Product
+from api.serializer import UserSerializer, MyTokenSerializer, RegisterSerializer, ProductaSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import generics, status
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -36,4 +36,8 @@ def testEndPoint(request):
         data = f'Congratulations your API just responded to POST request with text: {text}'
         return Response({'response': data}, status=status.HTTP_200_OK)
     return Response({}, status.HTTP_400_BAD_REQUEST)
+
+class ProductListView(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductaSerializer
         

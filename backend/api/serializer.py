@@ -1,7 +1,12 @@
-from api.models import User, Profile
+from api.models import User, Product
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
+
+class ProductaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'user', 'name', 'expirationDate', 'status', 'quantity', 'unit']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
