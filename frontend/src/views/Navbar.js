@@ -41,7 +41,10 @@ function Navbar() {
               {token !== null && 
                 <>
                   <li class="nav-item">
-                    <a class="nav-link" href="/dashboard">Dashboard</a>
+                    <Link class="nav-link" to="/dashboard">Dashboard</Link>
+                  </li>
+                  <li class="nav-item">
+                    <Link class="nav-link" to="/product">Product List</Link>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" onClick={logout} style={{cursor:"pointer"}}>Logout</a>
