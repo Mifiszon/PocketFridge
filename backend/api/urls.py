@@ -7,6 +7,8 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='refresh'),
     path('register/', views.RegisterView.as_view(), name='register'),
     path('test/', views.testEndPoint, name='test'),
-    path('product/', views.ProductListView.as_view(), name='product_list'),
+    path('product/<user_id>/', views.ProductListView.as_view(), name='product-list'),
+    path('product-detail/<user_id>/<product_id>/', views.ProductDetailView.as_view(), name = 'product-detial'),
+    path('product-status/<user_id>/<product_id>/', views.ProductStatus.as_view(), name = 'product-status'),
     path('', views.getRoutes),
 ]

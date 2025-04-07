@@ -40,4 +40,38 @@ def testEndPoint(request):
 class ProductListView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductaSerializer
+    
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        user = User.objects.get(id = user_id)
         
+        product = Product.objects.filter(user=user)
+        
+        return product
+        
+class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ProductaSerializer
+    
+    def get_object(self):
+        user_id = self.kwargs['user_id']
+        product_id = self.kwargs['product_id']
+        
+        user = User.objects.get(id = user_id)
+        product = Product.objects.get(id = product_id, user = user)
+        
+        return product
+    
+class ProductStatus(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ProductaSerializer
+    
+    def get_object(self):
+        user_id = self.kwargs['user_id']
+        product_id = self.kwargs['product_id']
+        
+        user = User.objects.get(id = user_id)
+        product = Product.objects.get(id = product_id, user = user)
+        
+        product.status = 'used'
+        product.save()
+        
+        return product
