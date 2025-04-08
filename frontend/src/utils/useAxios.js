@@ -20,14 +20,13 @@ const useAxios = () => {
         const user = jwtDecode(authTokens.access)
         const expired = dayjs.unix(user.exp).diff(dayjs()) < 1
 
-        if (expired) {
+        if (!expired) {
             return request
         }
 
         const response = await axios.post(`${baseURL}/token/refresh/`, {
             refresh: authTokens.refresh
         })
-        localStorage.setItem("authTokens", JSON.stringify(response.data));
         localStorage.setItem("authTokens", JSON.stringify(response.data));
 
         setAuthTokens(response.data)

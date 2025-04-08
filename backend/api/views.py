@@ -6,6 +6,7 @@ from rest_framework import generics, status
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from api.models import STATUS
 
 class MyTokenView(TokenObtainPairView):
     serializer_class = MyTokenSerializer
@@ -23,6 +24,11 @@ def getRoutes(request):
         '/api/token/refresh/'
     ]
     return Response(routes)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_status_choices(request):
+    return Response([{"value": val, "label": label} for val, label in STATUS])
 
     
 @api_view(['GET', 'POST'])

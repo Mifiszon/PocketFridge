@@ -7,6 +7,10 @@ class ProductaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ['id', 'user', 'name', 'expirationDate', 'status', 'quantity', 'unit']
+        extra_kwargs = {
+            'unit': {'required': False},
+        }
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
