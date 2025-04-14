@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
             setAuthTokens(data);
             setUser(jwtDecode(data.access));
             localStorage.setItem("authTokens", JSON.stringify(data));
-            navigate("/");
+            navigate("/dashboard");
             Swal.fire({
                 title: "Login Successful",
                 icon: "success",
@@ -97,7 +97,7 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         localStorage.removeItem("authTokens");
         navigate("/login");
-        swal.fire({
+        Swal.fire({
             title: "You have been logged out",
             icon: "success",
             toast: true,

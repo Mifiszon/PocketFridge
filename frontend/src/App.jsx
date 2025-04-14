@@ -9,6 +9,7 @@ import Dashboard from './views/Dashboard';
 import Navbar from './views/Navbar';
 import Product from "./views/Product";
 
+
 function App() {
   return (
     <Router>
@@ -30,7 +31,7 @@ function Layout() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/product" element={<Product />} />
+        <Route path="/product" element={<PrivateRoute><Product /></PrivateRoute>} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
       </Routes>
