@@ -1,8 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-
-const swal = require('sweetalert2')
+import Swal from "sweetalert2";
 
 const AuthContext = createContext();
 
@@ -38,7 +37,7 @@ export const AuthProvider = ({ children }) => {
             setUser(jwtDecode(data.access));
             localStorage.setItem("authTokens", JSON.stringify(data));
             navigate("/");
-            swal.fire({
+            Swal.fire({
                 title: "Login Successful",
                 icon: "success",
                 toast: true,
@@ -70,7 +69,7 @@ export const AuthProvider = ({ children }) => {
 
         if (response.status === 201) {
             navigate("/login");
-            swal.fire({
+            Swal.fire({
                 title: "Registration Successful, Login Now",
                 icon: "success",
                 toast: true,
@@ -81,7 +80,7 @@ export const AuthProvider = ({ children }) => {
             })
         } else {
             alert("Something went wrong: " + response.status);
-            swal.fire({
+            Swal.fire({
                 title: "An Error Occured, Try Again",
                 icon: "error",
                 toast: true,
