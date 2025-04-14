@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
+import "tailwindcss";
 
 function Login() {
 
@@ -19,7 +20,7 @@ function Login() {
   return (
     <div>
       <>
-  <section className="vh-100" style={{ backgroundColor: "black" }}>
+  <section className="vh-100" style={{ backgroundColor: "white" }}>
     <div className="container py-5 h-100">
       <div className="row d-flex justify-content-center align-items-center h-100">
         <div className="col col-xl-10">
@@ -27,7 +28,7 @@ function Login() {
             <div className="row g-0">
               <div className="col-md-6 col-lg-5 d-none d-md-block">
                 <img
-                  src="/assets/helemet.png"
+                  src="/assets/grocery.png"
                   alt="login form"
                   className="img-fluid"
                   style={{ borderRadius: "1rem 0 0 1rem" }}
@@ -37,17 +38,7 @@ function Login() {
                 <div className="card-body p-4 p-lg-5 text-black">
                   <form onSubmit={handleSubmit}>
                     <div className="d-flex align-items-center mb-3 pb-1">
-                      <i
-                        className="fas fa-cubes fa-2x me-3"
-                        style={{ color: "#ff6219" }}
-                      />
-                      <div className="d-flex align-items-center mb-3 pb-1">
-                        <i
-                          className="fas fa-cubes fa-2x me-3"
-                          style={{ color: "#ff6219" }}
-                        />
-                        <span className="h2 fw-bold mb-0">Welcome back!</span>
-                      </div>
+                      <span className="h2 fw-bold mb-0">Welcome back!</span>
                     </div>
                     <h5
                       className="fw-normal mb-3 pb-3"
@@ -88,7 +79,7 @@ function Login() {
                     <a className="small text-muted" href="#!">
                       Forgot password?
                     </a>
-                    <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
+                    <p className="mb-5 pb-lg-2">
                       Don't have an account?{" "}
                       <Link to="/register" style={{ color: "#393f81" }}>
                         Register Now 
@@ -115,8 +106,8 @@ function Login() {
       style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
     >
       © 2025 - till date Copyright
-      <a className="text-dark" href="https://mdbootstrap.com/">
-        : Mark3d.com
+      <a className="text-dark">
+        : PocketFridge.com
       </a>
     </div>
   </footer>

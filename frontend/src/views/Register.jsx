@@ -1,6 +1,7 @@
 import {useState, useContext} from 'react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
+import "tailwindcss";
 
 
 function Register() {
@@ -28,7 +29,7 @@ function Register() {
                   <div className="row g-0">
                     <div className="col-md-6 col-lg-5 d-none d-md-block">
                       <img
-                        src="/assets/helemet.png"
+                        src="/assets/zerowaste.png"
                         alt="login form"
                         className="img-fluid"
                         style={{ borderRadius: "1rem 0 0 1rem" }}
@@ -38,12 +39,8 @@ function Register() {
                       <div className="card-body p-4 p-lg-5 text-black">
                         <form onSubmit={handleSubmit}>
                           <div className="d-flex align-items-center mb-3 pb-1">
-                            <i
-                              className="fas fa-cubes fa-2x me-3"
-                              style={{ color: "#ff6219" }}
-                            />
                             <span className="h2 fw-bold mb-0">
-                              Welcome to <b>Mark3D</b>
+                              Welcome to <b>Pocket Fridge</b>
                             </span>
                           </div>
                           <h5
@@ -99,7 +96,7 @@ function Register() {
                           <a className="small text-muted" href="#!">
                             Forgot password?
                           </a>
-                          <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
+                          <p className="mb-5 pb-lg-2">
                             Already have an account?{" "}
                             <Link to="/login" style={{ color: "#393f81" }}>
                               Login Now
@@ -121,17 +118,15 @@ function Register() {
           </div>
         </section>
         <footer className="bg-light text-center text-lg-start">
-          {/* Copyright */}
           <div
             className="text-center p-3"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
           >
             © 2025 - till date Copyright
-            <a className="text-dark" href="https://mdbootstrap.com/">
-              : Mark3D.com
+            <a className="text-dark">
+              : PocketFridge.com
             </a>
           </div>
-          {/* Copyright */}
         </footer>
     </>
 

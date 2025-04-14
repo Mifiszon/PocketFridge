@@ -1,4 +1,5 @@
 import React from 'react'
+import "tailwindcss";
 
 function Homepage() {
   return (

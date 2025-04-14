@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import useAxios from '../utils/useAxios'
 import { jwtDecode } from 'jwt-decode'
 import Swal from 'sweetalert2'
+import "tailwindcss";
 
 function Product() {
     const baseURL = "http://127.0.0.1:8000/api"

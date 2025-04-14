@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import useAxios from "../utils/useAxios"
 import {jwtDecode} from 'jwt-decode'
+import "tailwindcss";
 
 function Dashboard() {
 
