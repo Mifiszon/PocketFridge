@@ -33,7 +33,7 @@ def get_status_choices(request):
     
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
-def testEndPoint(request):
+def dailyTip(request):
     if request.method == 'GET':
         data = f"Congratulations {request.user}, your API just responded to GET request"
         return Response({'response': data}, status=status.HTTP_200_OK)

@@ -20,7 +20,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.post("/test/")
+        const response = await api.post("/daily-tip/")
         setRes(response.data.response)
       } catch (error) {
         console.log("Error details:", error.response ? error.response.data : error.message);
