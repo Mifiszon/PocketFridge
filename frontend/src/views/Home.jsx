@@ -60,7 +60,6 @@ function Home() {
             </div>
           </div>
 
-
           <div className="text-center mt-24">
             <h2 className="text-2xl font-medium mb-8">Why us?</h2>
             <p className="text-lg font-semibold mb-8">Find out why our app stands out in helping you control food waste and make smarter choices.</p>
@@ -87,7 +86,6 @@ function Home() {
           <div className="text-center mt-24 mb-20">
             <h2 className="text-2xl font-medium mb-4">Preview</h2>
             <p className="text-lg font-semibold mb-8">Take a quick look at the features and interface of the app before signing up.</p>
-
             <div className="flex justify-center mb-12">
               <img src="/assets/preview.png" alt="Preview" className="rounded-lg shadow-lg max-w-full w-[600px]" />
             </div>
@@ -109,9 +107,9 @@ function Home() {
           </div>
         </div>
       </main>
-
-      <footer className="container text-center py-8">
-        <p>© Pocket Fridge 2025</p>
+      
+      <footer className="bg-gray-100 w-full h-full text-center py-4 text-sm text-gray-600">
+        © Pocket Fridge 2025 : <a href="/" className="hover:underline">PocketFridge.com</a>
       </footer>
     </div>
   );

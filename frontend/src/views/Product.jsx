@@ -49,7 +49,7 @@ function Product() {
                     icon: "success",
                     toast: true,
                     timer: 2000,
-                    position: "top-right",
+                    position: "top",
                     timerProgressBar: true,
                     showConfirmButton: false,
                 })
@@ -68,7 +68,7 @@ function Product() {
             icon: "success",
             toast: true,
             timer: 2000,
-            position: "top-right",
+            position: "top",
             timerProgressBar: true,
             showConfirmButton: false,
         })
@@ -82,7 +82,7 @@ function Product() {
             icon: "success",
             toast: true,
             timer: 2000,
-            position: "top-right",
+            position: "top",
             timerProgressBar: true,
             showConfirmButton: false,
         })
