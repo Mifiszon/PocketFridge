@@ -14,7 +14,7 @@ function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 bg-black text-white shadow-md border-b-2 border-green-600">
+    <nav className="sticky top-0 z-50 bg-neutral-800 text-white shadow-md border-b-2 border-green-600">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         <div className="flex items-center gap-4">
           <Link to="/">
@@ -36,62 +36,33 @@ function Navbar() {
         </div>
 
         <div className="hidden md:flex gap-6 items-center">
-          <Link
-            to="/"
-            className="text-xl font-sans transition duration-200"
-            style={{ textDecoration: "none", color: '#16a34a' }}
-            onMouseEnter={(e) => e.target.style.color = '#276749'}
-            onMouseLeave={(e) => e.target.style.color = '#16a34a'}
-          >
+          <Link to="/" className="text-xl font-sans transition duration-200" style={{ textDecoration: "none", color: '#16a34a' }}
+            onMouseEnter={(e) => e.target.style.color = '#276749'} onMouseLeave={(e) => e.target.style.color = '#16a34a'}>
             Home
           </Link>
 
           {token === null ? (
             <>
-              <Link
-                to="/login"
-                className="text-xl transition duration-200"
-                style={{ textDecoration: "none", color: 'white' }}
-                onMouseEnter={(e) => e.target.style.color = '#f56565'}
-                onMouseLeave={(e) => e.target.style.color = 'white'}
-              >
+              <Link to="/login" className="text-xl transition duration-200" style={{ textDecoration: "none", color: 'white' }}
+                onMouseEnter={(e) => e.target.style.color = '#f56565'} onMouseLeave={(e) => e.target.style.color = 'white'}>
                 Login
               </Link>
-              <Link
-                to="/register"
-                className="text-xl transition duration-200"
-                style={{ textDecoration: "none", color: 'white' }}
-                onMouseEnter={(e) => e.target.style.color = '#f56565'}
-                onMouseLeave={(e) => e.target.style.color = 'white'}
-              >
+              <Link to="/register" className="text-xl transition duration-200" style={{ textDecoration: "none", color: 'white' }}
+                onMouseEnter={(e) => e.target.style.color = '#f56565'} onMouseLeave={(e) => e.target.style.color = 'white'}>
                 Register
               </Link>
             </>
           ) : (
             <>
-              <Link
-                to="/dashboard"
-                style={{ textDecoration: "none", color: "#16a34a" }}
-                className="text-xl hover:text-gray-300 hover:no-underline transition duration-200"
-                onMouseEnter={(e) => e.target.style.color = '#276749'}
-                onMouseLeave={(e) => e.target.style.color = '#16a34a'}
-              >
+              <Link to="/dashboard" style={{ textDecoration: "none", color: "#16a34a" }} className="text-xl hover:text-gray-300 hover:no-underline transition duration-200"
+                onMouseEnter={(e) => e.target.style.color = '#276749'} onMouseLeave={(e) => e.target.style.color = '#16a34a'}>
                 Dashboard
               </Link>
-              <Link
-                to="/product"
-                style={{ textDecoration: "none", color: "#16a34a" }}
-                className="text-xl hover:text-gray-300 hover:no-underline transition duration-200"
-                onMouseEnter={(e) => e.target.style.color = '#276749'}
-                onMouseLeave={(e) => e.target.style.color = '#16a34a'}
-              >
+              <Link to="/product" style={{ textDecoration: "none", color: "#16a34a" }} className="text-xl hover:text-gray-300 hover:no-underline transition duration-200"
+                onMouseEnter={(e) => e.target.style.color = '#276749'} onMouseLeave={(e) => e.target.style.color = '#16a34a'}>
                 Product List
               </Link>
-              <button
-                style={{ fontSize: "20px" }}
-                onClick={logout}
-                className="text-xl hover:text-red-500 transition duration-200"
-              >
+              <button style={{ fontSize: "20px" }} onClick={logout} className="text-xl hover:text-red-500 transition duration-200">
                 Logout
               </button>
             </>
@@ -101,58 +72,32 @@ function Navbar() {
 
       {isOpen && (
         <div className="md:hidden px-4 pb-4">
-          <Link
-            to="/"
-            style={{ textDecoration: "none", color: "#16a34a" }}
-            className="block py-1 transition duration-200"
-            onMouseEnter={(e) => e.target.style.color = '#276749'}
-            onMouseLeave={(e) => e.target.style.color = '#16a34a'}
-          >
+          <Link to="/" style={{ textDecoration: "none", color: "#16a34a" }} className="block py-1 transition duration-200"
+            onMouseEnter={(e) => e.target.style.color = '#276749'} onMouseLeave={(e) => e.target.style.color = '#16a34a'}>
             Home
           </Link>
           {token === null ? (
             <>
-              <Link
-                to="/login"
-                className="block py-1 hover:text-gray-300 transition duration-200"
-                onMouseEnter={(e) => e.target.style.color = '#f56565'}
-                onMouseLeave={(e) => e.target.style.color = 'white'}
-              >
+              <Link to="/login" className="block py-1 hover:text-gray-300 transition duration-200"
+                onMouseEnter={(e) => e.target.style.color = '#f56565'} onMouseLeave={(e) => e.target.style.color = 'white'}>
                 Login
               </Link>
-              <Link
-                to="/register"
-                className="block py-1 hover:text-gray-300 transition duration-200"
-                onMouseEnter={(e) => e.target.style.color = '#f56565'}
-                onMouseLeave={(e) => e.target.style.color = 'white'}
-              >
+              <Link to="/register" className="block py-1 hover:text-gray-300 transition duration-200"
+                onMouseEnter={(e) => e.target.style.color = '#f56565'} onMouseLeave={(e) => e.target.style.color = 'white'}>
                 Register
               </Link>
             </>
           ) : (
             <>
-              <Link
-                to="/dashboard"
-                style={{ textDecoration: "none", color: "#16a34a" }}
-                className="block py-1 hover:text-gray-300 transition duration-200"
-                onMouseEnter={(e) => e.target.style.color = '#276749'}
-                onMouseLeave={(e) => e.target.style.color = '#16a34a'}
-              >
+              <Link to="/dashboard" style={{ textDecoration: "none", color: "#16a34a" }} className="block py-1 hover:text-gray-300 transition duration-200"
+                onMouseEnter={(e) => e.target.style.color = '#276749'} onMouseLeave={(e) => e.target.style.color = '#16a34a'}>
                 Dashboard
               </Link>
-              <Link
-                to="/product"
-                style={{ textDecoration: "none", color: "#16a34a" }}
-                className="block py-1 hover:text-gray-300 transition duration-200"
-                onMouseEnter={(e) => e.target.style.color = '#276749'}
-                onMouseLeave={(e) => e.target.style.color = '#16a34a'}
-              >
+              <Link to="/product" style={{ textDecoration: "none", color: "#16a34a" }} className="block py-1 hover:text-gray-300 transition duration-200"
+                onMouseEnter={(e) => e.target.style.color = '#276749'} onMouseLeave={(e) => e.target.style.color = '#16a34a'}>           
                 Product List
               </Link>
-              <button
-                onClick={logout}
-                className="block py-1 hover:text-red-500 transition duration-200"
-              >
+              <button onClick={logout} className="block py-1 hover:text-red-500 transition duration-200">
                 Logout
               </button>
             </>

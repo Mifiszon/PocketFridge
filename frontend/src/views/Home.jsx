@@ -4,7 +4,7 @@ function Home() {
   return (
     <div>
       <main role="main">
-        <div className="relative">
+        <div className="relative border-b-1">
           <img src="/assets/fridge.png" alt="Food Control" className="w-full h-[900px] object-cover" />
           <div className="absolute top-0 left-0 right-0 bottom-0 bg-black/50 flex flex-col justify-center items-center">
             <h1 style={{fontSize: "100px"}} className="text-xl text-white font-bold text-center leading-snug">
@@ -12,11 +12,8 @@ function Home() {
             </h1>
             <p className="text-white text-lg mt-4 text-center">Monitor and plan expiration dates<br /><br /> Reduce food waste</p>
             <div className="flex justify-center mt-8">
-              <button
-                style={{fontSize: "30px"}}
-                onClick={() => window.location.href = "/register"}
-                className="bg-green-600 hover:bg-green-800 text-white py-4 px-12 rounded-lg text-xl transition duration-500"
-              >
+              <button style={{fontSize: "30px"}} onClick={() => window.location.href = "/register"}
+                className="bg-green-600 hover:bg-green-800 text-white py-4 px-12 rounded-lg text-xl transition duration-500">
                 Start Now
               </button>
             </div>
@@ -91,16 +88,12 @@ function Home() {
             </div>
 
             <div className="flex justify-center gap-6">
-              <button
-                onClick={() => window.location.href = "/register"}
-                className="bg-green-600 hover:bg-green-800 text-white py-3 px-8 rounded-lg text-lg transition duration-300"
-              >
+              <button onClick={() => window.location.href = "/register"}
+                className="bg-green-600 hover:bg-green-800 text-white py-3 px-8 rounded-lg text-lg transition duration-300">
                 Zarejestruj się
               </button>
-              <button
-                onClick={() => window.location.href = "/login"}
-                className="bg-gray-100 border-1 border-black hover:bg-gray-900 text-green-700 py-3 px-8 rounded-lg text-lg transition duration-300"
-              >
+              <button onClick={() => window.location.href = "/login"}
+                className="bg-neutral-100 border-1 border-neutral-800 hover:bg-neutral-800 text-green-700 py-3 px-8 rounded-lg text-lg transition duration-300">
                 Zaloguj się
               </button>
             </div>
