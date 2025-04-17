@@ -21,8 +21,8 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.post("/daily-tip/");
-        setRes(response.data.response);
+        const response = await api.get("/daily-tip/");
+        setRes(response.data.tip);
 
         setExpiringSoon([
           { name: "Mleko", expiry: "2025-04-16" },
@@ -37,7 +37,6 @@ function Dashboard() {
     fetchData();
   }, []);
 
-  // Przykładowe dane do wykresu
   const chartData = [
     { day: "Mon", items: 3 },
     { day: "Tue", items: 6 },
@@ -50,13 +49,14 @@ function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-6xl mx-auto">
+      <div className="text-center max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold mb-2">Welcome to your profile <span className="text-blue-600">{username}</span></h1>
         <p className="text-gray-600 mb-6">Here’s a quick overview of your fridge</p>
+        <p className="text-lg font-medium mb-2 mt-2">Daily tip:</p>
 
         {res && (
-          <div className="mb-6 bg-green-100 text-green-800 px-4 py-3 rounded shadow">
-            {res}
+          <div className="mb-6 w-full bg-green-100 text-green-800 px-4 py-3 rounded shadow">
+             {res}
           </div>
         )}
 

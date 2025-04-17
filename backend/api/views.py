@@ -7,6 +7,20 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from api.models import STATUS
+import random
+
+TIPS = [
+    "Plan your meals ahead to avoid buying unnecessary food.",
+    "Freeze leftovers or food that might go bad soon.",
+    "Use scraps to make soups, casseroles, or stir-fries.",
+    "Organize your fridge so that older items are in front.",
+    "Store fruits and vegetables properly – not everything belongs in the fridge.",
+    "Turn overripe fruits into smoothies or jams.",
+    "Don’t rely only on expiration dates – use your senses too.",
+    "Keep a list of what’s in your fridge and pantry to avoid double-buying.",
+    "Cook in larger batches and store portions for later.",
+    "Buy loose produce so you can choose exactly how much you need."
+]
 
 class MyTokenView(TokenObtainPairView):
     serializer_class = MyTokenSerializer
@@ -32,16 +46,10 @@ def get_status_choices(request):
 
     
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def dailyTip(request):
-    if request.method == 'GET':
-        data = f"Congratulations {request.user}, your API just responded to GET request"
-        return Response({'response': data}, status=status.HTTP_200_OK)
-    elif request.method == 'POST':
-        text = "Hello buddy"
-        data = f'Congratulations your API just responded to POST request with text: {text}'
-        return Response({'response': data}, status=status.HTTP_200_OK)
-    return Response({}, status.HTTP_400_BAD_REQUEST)
+    tip = random.choice(TIPS)
+    return Response({'tip': tip}, status=status.HTTP_200_OK)
 
 class ProductListView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
