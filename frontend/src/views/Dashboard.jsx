@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import useAxios from "../utils/useAxios";
 import { jwtDecode } from "jwt-decode";
-import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-} from "recharts";
+import ExpCalendar from "./ExpCalendar";
 
 function Dashboard() {
   const [res, setRes] = useState("");
+  const [products, setProducts] = useState([]);
   const [expiringSoon, setExpiringSoon] = useState([]);
   const api = useAxios();
   const token = localStorage.getItem("authTokens");
@@ -21,72 +20,73 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get("/daily-tip/");
-        setRes(response.data.tip);
+        const [tipResponse, productResponse] = await Promise.all([
+          api.get("/daily-tip/"), 
+          pi.get(`http://127.0.0.1:8000/api/product/${jwtDecode(token).user_id}/`
+        )]);
+        setRes(tipResponse.data.tip);
+        setProducts(productResponse.data);
 
-        setExpiringSoon([
-          { name: "Mleko", expiry: "2025-04-16" },
-          { name: "Ser", expiry: "2025-04-17" },
-          { name: "Jogurt", expiry: "2025-04-18" },
-        ]);
+        const now = new Date();
+        const soon = productResponse.data.filter((product) => {
+          const exp = new Date(product.expirationDate);
+          const diffDays = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
+          return diffDays >= 0 && diffDays <= 3;
+        });
+
+        const simplifiedSoon = soon.map((item) => ({
+          name: item.name,
+          expiry: item.expirationDate
+        }));
+
+        setExpiringSoon(simplifiedSoon);
+
       } catch (error) {
         console.log("Error details:", error.response ? error.response.data : error.message);
         setRes("Something went wrong: " + (error.response?.data?.message || error.message));
       }
     };
+
     fetchData();
   }, []);
 
-  const chartData = [
-    { day: "Mon", items: 3 },
-    { day: "Tue", items: 6 },
-    { day: "Wed", items: 2 },
-    { day: "Thu", items: 5 },
-    { day: "Fri", items: 8 },
-    { day: "Sat", items: 4 },
-    { day: "Sun", items: 7 },
-  ];
+  const now = new Date();
+  const expiredCount = products.filter((p) => new Date(p.expirationDate) < now).length;
+  const expiringSoonCount = products.filter((p) => {
+    const exp = new Date(p.expirationDate);
+    const diff = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
+    return diff >= 0 && diff <= 3;
+  }).length;
+  const totalCount = products.length;
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="text-center max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2">Welcome to your profile <span className="text-blue-600">{username}</span></h1>
+        <h1 className="text-3xl font-bold mb-2">Welcome to your profile {username}!</h1>
         <p className="text-gray-600 mb-6">Here’s a quick overview of your fridge</p>
-        <p className="text-lg font-medium mb-2 mt-2">Daily tip:</p>
 
+        <p className="text-lg font-medium mb-2 mt-2">Daily tip:</p>
         {res && (
           <div className="mb-6 w-full bg-green-100 text-green-800 px-4 py-3 rounded shadow">
-             {res}
+            {res}
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <StatCard label="Items in fridge" value={42} color="blue" />
-          <StatCard label="Close to expiry" value={7} color="yellow" />
-          <StatCard label="Expired items" value={3} color="red" />
-          <StatCard label="Added this week" value={10} color="green" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <StatCard label="Items in fridge" value={totalCount} color="blue" />
+          <StatCard label="Close to expiry" value={expiringSoonCount} color="yellow" />
+          <StatCard label="Expired items" value={expiredCount} color="red" />       
         </div>
 
-        <div className="bg-white p-4 rounded shadow mb-8">
-          <h2 className="text-xl font-semibold mb-4">📈 Items added this week</h2>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" />
-              <YAxis />
-              <Tooltip />
-              <Line type="monotone" dataKey="items" stroke="#3b82f6" strokeWidth={3} />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+        <ExpCalendar items={expiringSoon} />
 
-        <div className="bg-white p-4 rounded shadow">
+        <div className="bg-white p-4 rounded shadow mt-8">
           <h2 className="text-xl font-semibold mb-4">🧾 Products expiring soon</h2>
           <ul className="space-y-2">
             {expiringSoon.map((item, index) => (
               <li key={index} className="flex justify-between p-2 bg-gray-100 rounded">
                 <span>{item.name}</span>
-                <span className="text-sm text-gray-600">{item.expiry}</span>
+                <span className="text-sm text-gray-600">{new Date(item.expiry).toLocaleDateString("en-GB")}</span> {/* Date format */}
               </li>
             ))}
           </ul>
