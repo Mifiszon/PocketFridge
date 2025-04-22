@@ -4,25 +4,22 @@ import { jwtDecode } from "jwt-decode";
 import ExpCalendar from "./ExpCalendar";
 
 function Dashboard() {
+  const baseURL = "http://127.0.0.1:8000/api";
   const [res, setRes] = useState("");
   const [products, setProducts] = useState([]);
   const [expiringSoon, setExpiringSoon] = useState([]);
   const api = useAxios();
   const token = localStorage.getItem("authTokens");
-
-  let username = "";
-
-  if (token) {
-    const decode = jwtDecode(token);
-    username = decode.username;
-  }
+  const decoded = jwtDecode(token);
+  const user_id = decoded.user_id;
+  const username = decoded.username;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [tipResponse, productResponse] = await Promise.all([
           api.get("/daily-tip/"), 
-          pi.get(`http://127.0.0.1:8000/api/product/${jwtDecode(token).user_id}/`
+          api.get(baseURL + `/product/` + user_id + `/`
         )]);
         setRes(tipResponse.data.tip);
         setProducts(productResponse.data);
@@ -43,7 +40,6 @@ function Dashboard() {
 
       } catch (error) {
         console.log("Error details:", error.response ? error.response.data : error.message);
-        setRes("Something went wrong: " + (error.response?.data?.message || error.message));
       }
     };
 

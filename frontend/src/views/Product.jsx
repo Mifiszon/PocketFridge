@@ -14,6 +14,9 @@ function Product() {
 
   const [product, setProduct] = useState([]);
   useEffect(() => {
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
     fetchData();
   }, []);
 
@@ -46,10 +49,29 @@ function Product() {
     }
   };
 
+  const notifyExpiration = (items) => {
+    const today = new Date();
+    const soon = new Date(today.getTime() + 3 * 24 * 60 * 60 * 1000);
+  
+    const soonExpiring = items.filter((item) => {
+      const expDate = new Date(item.expirationDate);
+      return expDate >= today && expDate <= soon && item.status !== "expired";
+    });
+  
+    if (soonExpiring.length > 0 && Notification.permission === "granted") {
+      const productNames = soonExpiring.map(p => p.name).join(", ");
+      new Notification("🧊 Products close to expiring!", {
+        body: `${productNames}`,
+        icon: "/favicon.ico"
+      });
+    }
+  };
+
   const fetchData = async () => {
     await api.get(baseURL + "/product/" + user_id + "/").then((res) => {
-      console.log(res.data);
-      setProduct(res.data);
+      const sortedData = res.data.sort((a, b) => new Date(a.expirationDate) - new Date(b.expirationDate));
+      setProduct(sortedData);
+      notifyExpiration(sortedData);
     });
   };
   console.log(createProduct.name);
