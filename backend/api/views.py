@@ -7,8 +7,9 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from api.models import STATUS
-from datetime import timedelta
-from django.utils import timezone
+from django.core.mail import send_mail
+from django.conf import settings
+from django.http import HttpResponse
 import random
 
 TIPS = [
@@ -91,3 +92,15 @@ class ProductStatus(generics.RetrieveUpdateDestroyAPIView):
         product.save()
         
         return product
+    
+def send_test_email():
+    subject = 'Test powiadomienia'
+    message = 'To jest testowy e-mail od Pocket Fridge!'
+    from_email = settings.EMAIL_HOST_USER
+    recipient_list = ['mifiszon@gmail.com']
+
+    send_mail(subject, message, from_email, recipient_list)
+    
+def test_email_view(request):
+    send_test_email()
+    return HttpResponse("Wysłano testowy mail!")
