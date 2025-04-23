@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'corsheaders',
-    'rest_framework_simplejwt.token_blacklist'
+    'rest_framework_simplejwt.token_blacklist',
+    'background_task',
 ]
 
 MIDDLEWARE = [
@@ -76,6 +77,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
+
+BACKGROUND_TASK_RUN_ASYNC = True
+
 
 
 # Database

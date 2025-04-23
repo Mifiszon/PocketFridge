@@ -18,9 +18,9 @@ function Dashboard() {
     const fetchData = async () => {
       try {
         const [tipResponse, productResponse] = await Promise.all([
-          api.get("/daily-tip/"), 
-          api.get(baseURL + `/product/` + user_id + `/`
-        )]);
+          api.get("/daily-tip/"),
+          api.get(baseURL + `/product/` + user_id + `/`)
+        ]);
         setRes(tipResponse.data.tip);
         setProducts(productResponse.data);
 
@@ -28,7 +28,7 @@ function Dashboard() {
         const soon = productResponse.data.filter((product) => {
           const exp = new Date(product.expirationDate);
           const diffDays = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
-          return diffDays >= 0 && diffDays <= 3;
+          return diffDays >= 0 && diffDays <= 3;  // Only products expiring in the next 3 days (including today)
         });
 
         const simplifiedSoon = soon.map((item) => ({
@@ -37,7 +37,6 @@ function Dashboard() {
         }));
 
         setExpiringSoon(simplifiedSoon);
-
       } catch (error) {
         console.log("Error details:", error.response ? error.response.data : error.message);
       }
@@ -47,12 +46,17 @@ function Dashboard() {
   }, []);
 
   const now = new Date();
-  const expiredCount = products.filter((p) => new Date(p.expirationDate) < now).length;
+  const expiredCount = products.filter((p) => {
+    const exp = new Date(p.expirationDate);
+    return exp < now;  // Expired if the expiration date is strictly before today
+  }).length;
+
   const expiringSoonCount = products.filter((p) => {
     const exp = new Date(p.expirationDate);
     const diff = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
-    return diff >= 0 && diff <= 3;
+    return diff >= 0 && diff <= 3;  // Expiring in the next 3 days (including today)
   }).length;
+
   const totalCount = products.length;
 
   return (

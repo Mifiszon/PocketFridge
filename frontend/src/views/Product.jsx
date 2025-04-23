@@ -58,8 +58,15 @@ function Product() {
       return expDate >= today && expDate <= soon && item.status !== "expired";
     });
   
-    if (soonExpiring.length > 0 && Notification.permission === "granted") {
-      const productNames = soonExpiring.map(p => p.name).join(", ");
+    const todayExpiring = items.filter((item) => {
+      const expDate = new Date(item.expirationDate);
+      return expDate.toDateString() === today.toDateString() && item.status !== "expired";
+    });
+  
+    const expiringProducts = [...soonExpiring, ...todayExpiring];
+  
+    if (expiringProducts.length > 0 && Notification.permission === "granted") {
+      const productNames = expiringProducts.map(p => p.name).join(", ");
       new Notification("🧊 Products close to expiring!", {
         body: `${productNames}`,
         icon: "/favicon.ico"
