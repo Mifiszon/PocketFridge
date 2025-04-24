@@ -48,13 +48,13 @@ function Dashboard() {
   const now = new Date();
   const expiredCount = products.filter((p) => {
     const exp = new Date(p.expirationDate);
-    return exp < now;  // Expired if the expiration date is strictly before today
+    return exp < now;
   }).length;
 
   const expiringSoonCount = products.filter((p) => {
     const exp = new Date(p.expirationDate);
     const diff = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
-    return diff >= 0 && diff <= 3;  // Expiring in the next 3 days (including today)
+    return diff >= 0 && diff <= 3;
   }).length;
 
   const totalCount = products.length;
@@ -63,6 +63,15 @@ function Dashboard() {
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="text-center max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold mb-2">Welcome to your profile {username}!</h1>
+        <div className="flex justify-center mt-8 mb-8">
+          <button
+            style={{ fontSize: "24px" }}
+            onClick={() => window.location.href = "/product"}
+            className="bg-blue-600 hover:bg-blue-800 text-white py-4 px-10 rounded-lg text-xl transition duration-500 flex items-center gap-3"
+          >
+            ➕ Add more products
+          </button>
+        </div>
         <p className="text-gray-600 mb-6">Here’s a quick overview of your fridge</p>
 
         <p className="text-lg font-medium mb-2 mt-2">Daily tip:</p>

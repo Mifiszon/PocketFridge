@@ -42,7 +42,7 @@ function Product() {
     if (differenceDay < 0) {
       return "bg-red-200";
     } else if (differenceDay <= 3) {
-      return "bg-orange-200";
+      return "bg-orange-300";
     } else {
       return "bg-white";
     }
@@ -179,23 +179,18 @@ function Product() {
                 <div key={product.id} className={`mb-2 grid grid-cols-3 items-center rounded py-2 shadow text-gray-800 transition duration-200 ${statusColor(product.expirationDate)}`}>
                   <div className={product.opened ? "" : ""}>
                     {product.name}
-                    {product.opened && <span className="ml-1 text-xs text-yellow-600">(opened)</span>}
+                    {product.opened && <span className="ml-1 text-xs text-blue-600">(opened)</span>}
                     {product.quantity && (
                       <span className="text-sm text-gray-600 ml-2">({product.quantity} {product.unit})</span>
                     )}
                   </div>
-                  <div className={`text-right ${product.opened ? "text-red-500" : ""}`}>
+                  <div className={`text-right ${product.opened ? "" : ""}`}>
                     {formatDate(product.expirationDate)}
                   </div>
                   <div className="flex justify-end gap-2">
-                    <button 
-                      onClick={() => markAsOpened(product.id)} 
-                      disabled={product.opened} 
-                      className={`${
-                        product.opened ? "bg-yellow-300" : "bg-yellow-600 hover:bg-yellow-700"
-                      } text-white px-3 py-1 rounded`}
-                    >
-                      📂
+                    <button onClick={() => markAsOpened(product.id)} disabled={product.opened} 
+                      className={`${product.opened ? "bg-blue-300" : "bg-blue-600 hover:bg-blue-700"} text-white px-3 py-1 rounded`}>
+                      🍾
                     </button>
 
                     <button onClick={() => deleteData(product.id)} className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
