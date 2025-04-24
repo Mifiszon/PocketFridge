@@ -6,7 +6,6 @@ from rest_framework import generics, status
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from api.models import STATUS
 from api.utils import send_test_email, send_expiry_reminder_email
 from django.http import HttpResponse
 from datetime import datetime, timedelta
@@ -43,12 +42,6 @@ def getRoutes(request):
         '/api/token/refresh/'
     ]
     return Response(routes)
-
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def get_status_choices(request):
-    return Response([{"value": val, "label": label} for val, label in STATUS])
-
     
 @api_view(['GET', 'POST'])
 @permission_classes([AllowAny])
@@ -80,7 +73,7 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
         
         return product
     
-class ProductStatus(generics.RetrieveUpdateDestroyAPIView):
+class ProductOpened(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProductaSerializer
     
     def get_object(self):
@@ -90,14 +83,14 @@ class ProductStatus(generics.RetrieveUpdateDestroyAPIView):
         user = User.objects.get(id = user_id)
         product = Product.objects.get(id = product_id, user = user)
         
-        product.status = 'used'
+        product.opened = True
         product.save()
         
         return product
     
 def test_email_view(request):
     send_expiry_reminder_email()
-    return HttpResponse("Wysłano testowy mail!")
+    return HttpResponse("test")
 
 def schedule_task():
     now = datetime.now()

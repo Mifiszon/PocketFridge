@@ -11,14 +11,6 @@ UNITS = [
     ('opak', 'opakowanie'),
 ]
 
-STATUS = [
-    ('fresh', 'Świeże'),
-    ('opened', 'Otwarte'),
-    ('expired', 'Przeterminowane'),
-    ('used', 'Zużyte'),
-]
-
-
 class User(AbstractUser):
     username = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
@@ -47,9 +39,7 @@ class Product(models.Model):
     quantity = models.FloatField()
     unit = models.CharField(max_length=100, choices=UNITS, default='szt')
     category = models.CharField(max_length=200)
-    openDate = models.DateTimeField(null=True, blank=True)
-    status = models.CharField(max_length=100, choices=STATUS, default='fresh')
-    reminder = models.IntegerField(default=3)
+    opened = models.BooleanField(default=False)
     
     def __str__(self):
         return self.name

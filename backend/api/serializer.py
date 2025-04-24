@@ -6,9 +6,10 @@ from rest_framework import serializers
 class ProductaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['id', 'user', 'name', 'expirationDate', 'status', 'quantity', 'unit']
+        fields = ['id', 'user', 'name', 'expirationDate', 'opened', 'quantity', 'unit']
         extra_kwargs = {
             'unit': {'required': False},
+            'opened': {'required': False},
         }
 
 

@@ -22,7 +22,6 @@ function Product() {
 
   const [createProduct, setCreateProduct] = useState({
     name: "",
-    status: "",
     quantity: "",
     expirationDate: "",
     unit: "",
@@ -55,12 +54,12 @@ function Product() {
   
     const soonExpiring = items.filter((item) => {
       const expDate = new Date(item.expirationDate);
-      return expDate >= today && expDate <= soon && item.status !== "expired";
+      return expDate >= today && expDate <= soon;
     });
   
     const todayExpiring = items.filter((item) => {
       const expDate = new Date(item.expirationDate);
-      return expDate.toDateString() === today.toDateString() && item.status !== "expired";
+      return expDate.toDateString() === today.toDateString();
     });
   
     const expiringProducts = [...soonExpiring, ...todayExpiring];
@@ -89,7 +88,6 @@ function Product() {
     data.append("user", user_id);
     data.append("name", createProduct.name);
     data.append("unit", createProduct.unit);
-    data.append("status", createProduct.status);
     data.append("quantity", createProduct.quantity);
     data.append("expirationDate", createProduct.expirationDate);
 
@@ -128,12 +126,10 @@ function Product() {
     fetchData();
   };
 
-  const changeStatus = async (product_id) => {
-    await api.patch(
-      baseURL + "/product-status/" + user_id + "/" + product_id + "/"
-    );
+  const markAsOpened = async (product_id) => {
+    await api.patch(baseURL + "/product-opened/" + user_id + "/" + product_id + "/");
     Swal.fire({
-      title: "Product Expired",
+      title: "Product marked as opened",
       icon: "success",
       toast: true,
       timer: 2000,
@@ -143,6 +139,7 @@ function Product() {
     });
     fetchData();
   };
+
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString("pl-PL");
@@ -158,10 +155,9 @@ function Product() {
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <input name="name" onChange={addNewProduct} value={createProduct.name} type="text" className="border p-2 rounded" placeholder="Name of the product"/>
-            <input name="status" onChange={addNewProduct} value={createProduct.status} type="text" className="border p-2 rounded" placeholder="fresh / opened / used / expired"/>
             <input name="quantity" onChange={addNewProduct} value={createProduct.quantity} type="number" className="border p-2 rounded"placeholder="Quantity"/>
             <input name='unit' onChange={addNewProduct} value={createProduct.unit || ''} type="text" className="border p-2 rounded" placeholder='Unit'/>
-            <input name="expirationDate" type="date"onChange={addNewProduct} value={createProduct.expirationDate} className="text-center border p-2 rounded w-168"/>
+            <input name="expirationDate" type="date"onChange={addNewProduct} value={createProduct.expirationDate} className="border p-2 rounded"/>
           </div>
           <div className="text-center">
             <button onClick={formSubmit} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full md:w-auto">
@@ -171,7 +167,7 @@ function Product() {
 
           <div className="mt-8">
             <div className="grid grid-cols-3 font-semibold border-b pb-2 mb-2 text-gray-700">
-              <span>Name | Qunatity</span>
+              <span>Name | Quantity</span>
               <span className="text-right">Expiration Date </span>
               <span className="text-right">Actions</span>
             </div>
@@ -181,19 +177,27 @@ function Product() {
             ) : (
               product.map((product) => (
                 <div key={product.id} className={`mb-2 grid grid-cols-3 items-center rounded py-2 shadow text-gray-800 transition duration-200 ${statusColor(product.expirationDate)}`}>
-                  <div className={product.status === "expired" || product.status === "used" ? "line-through text-gray-500" : ""}>
+                  <div className={product.opened ? "" : ""}>
                     {product.name}
+                    {product.opened && <span className="ml-1 text-xs text-yellow-600">(opened)</span>}
                     {product.quantity && (
-                        <span className="text-sm text-gray-600 ml-2">({product.quantity} {product.unit})</span>
+                      <span className="text-sm text-gray-600 ml-2">({product.quantity} {product.unit})</span>
                     )}
                   </div>
-                  <div className={`text-right ${product.status === "expired" ? "text-red-500" : ""}`}>
+                  <div className={`text-right ${product.opened ? "text-red-500" : ""}`}>
                     {formatDate(product.expirationDate)}
                   </div>
                   <div className="flex justify-end gap-2">
-                    <button onClick={() => changeStatus(product.id)} className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">
-                      ✔
+                    <button 
+                      onClick={() => markAsOpened(product.id)} 
+                      disabled={product.opened} 
+                      className={`${
+                        product.opened ? "bg-yellow-300" : "bg-yellow-600 hover:bg-yellow-700"
+                      } text-white px-3 py-1 rounded`}
+                    >
+                      📂
                     </button>
+
                     <button onClick={() => deleteData(product.id)} className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
                       🗑
                     </button>
