@@ -22,10 +22,10 @@ def send_expiry_reminder_email():
         if product.user not in users_products:
             users_products[product.user] = []
 
-        users_products[product.user].append(f"{product.name} - {days_left} dni do wygaśnięcia")
+        users_products[product.user].append(f"{product.name} - {days_left} days till expire")
 
     for user, product_list in users_products.items():
-        subject = "Powiadomienie o wygasających produktach"
+        subject = "Reminder of expiring products"
         message = "Oto lista Twoich produktów, które wygasają w najbliższych dniach:\n\n"
         message += "\n".join(product_list)
         from_email = settings.EMAIL_HOST_USER
@@ -35,8 +35,8 @@ def send_expiry_reminder_email():
 
 
 def send_test_email():
-    subject = 'Test powiadomienia'
-    message = 'To jest testowy e-mail od Pocket Fridge!'
+    subject = 'Test'
+    message = 'Test'
     from_email = settings.EMAIL_HOST_USER
     recipient_list = ['mifiszon@gmail.com']
 
