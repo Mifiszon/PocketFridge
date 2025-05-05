@@ -159,6 +159,13 @@ function Product() {
     }
   };
 
+  const canMarkAsOpened = (expirationDate) => {
+    const now = new Date();
+    const exp = new Date(expirationDate);
+    const diffInDays = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
+    return diffInDays >= 3;
+  };
+
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString("pl-PL");
@@ -207,8 +214,7 @@ function Product() {
                     {formatDate(product.expirationDate)}
                   </div>
                   <div className="flex justify-end gap-2">
-                    <button onClick={() => markAsOpened(product.id)} disabled={product.opened} 
-                      className={`${product.opened ? "bg-blue-300" : "bg-blue-600 hover:bg-blue-700"} text-white px-3 py-1 rounded`}>
+                    <button onClick={() => markAsOpened(product.id)} disabled={product.opened || !canMarkAsOpened(product.expirationDate)}className={`${product.opened ? "bg-blue-300" : "bg-blue-600 hover:bg-blue-700"} text-white px-3 py-1 rounded`}>
                       🍾
                     </button>
 

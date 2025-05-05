@@ -94,7 +94,7 @@ def test_email_view(request):
 
 def schedule_task():
     now = datetime.now()
-    next_run_time = now.replace(hour=14, minute=0, second=0, microsecond=0)
+    next_run_time = now.replace(hour=7, minute=0, second=0, microsecond=0)
 
     if now > next_run_time:
         next_run_time += timedelta(days=1)
