@@ -101,6 +101,10 @@ function Dashboard() {
           </ul>
         </div>
       </div>
+      <footer className="bg-gray-100 w-full text-center py-4 text-sm text-gray-600 mt-10">
+        © Pocket Fridge 2025 :{" "}
+        <a href="/" className="hover:underline">PocketFridge.com</a>
+      </footer>
     </div>
   );
 }

@@ -26,7 +26,7 @@ def send_expiry_reminder_email():
 
     for user, product_list in users_products.items():
         subject = "Reminder of expiring products"
-        message = "Oto lista Twoich produktów, które wygasają w najbliższych dniach:\n\n"
+        message = "Here is the list of products that are about to expire in the next days:\n\n"
         message += "\n".join(product_list)
         from_email = settings.EMAIL_HOST_USER
         recipient_list = [user.email]

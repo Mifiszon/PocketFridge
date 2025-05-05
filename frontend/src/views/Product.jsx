@@ -66,9 +66,9 @@ function Product() {
   
     if (expiringProducts.length > 0 && Notification.permission === "granted") {
       const productNames = expiringProducts.map(p => p.name).join(", ");
-      new Notification("🧊 Products close to expiring!", {
+      new Notification("❄️Products close to expiring!❄️", {
         body: `${productNames}`,
-        icon: "/favicon.ico"
+        icon: "assets/pocketlogo.png"
       });
     }
   };
@@ -103,7 +103,12 @@ function Product() {
           showConfirmButton: false,
         });
         fetchData();
-        createProduct.name = "";
+        setCreateProduct({
+          name: "",
+          quantity: "",
+          expirationDate: "",
+          unit: "",
+        });
       });
     } catch (error) {
       console.log(error);
@@ -127,17 +132,31 @@ function Product() {
   };
 
   const markAsOpened = async (product_id) => {
-    await api.patch(baseURL + "/product-opened/" + user_id + "/" + product_id + "/");
-    Swal.fire({
-      title: "Product marked as opened",
-      icon: "success",
-      toast: true,
-      timer: 2000,
-      position: "top",
-      timerProgressBar: true,
-      showConfirmButton: false,
-    });
-    fetchData();
+    const today = new Date();
+    const newExpirationDate = new Date(today.getTime() + 3 * 24 * 60 * 60 * 1000);
+    const formattedDate = newExpirationDate.toISOString().split("T")[0];
+  
+    try {
+      await api.patch(baseURL + "/product-opened/" + user_id + "/" + product_id + "/", {
+        opened: true,
+        expirationDate: formattedDate,
+      });
+  
+      Swal.fire({
+        title: "Product marked as opened",
+        text: "Expiration set to 3 days",
+        icon: "success",
+        toast: true,
+        timer: 2000,
+        position: "top",
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+  
+      fetchData();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const formatDate = (dateStr) => {
@@ -203,7 +222,6 @@ function Product() {
           </div>
         </div>
       </div>
-
       <footer className="bg-gray-100 w-full text-center py-4 text-sm text-gray-600 mt-10">
         © Pocket Fridge 2025 :{" "}
         <a href="/" className="hover:underline">PocketFridge.com</a>
