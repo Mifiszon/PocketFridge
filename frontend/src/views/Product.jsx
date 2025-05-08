@@ -11,6 +11,17 @@ function Product() {
   const token = localStorage.getItem("authTokens");
   const decoded = jwtDecode(token);
   const user_id = decoded.user_id;
+  const units = [
+    ['g', 'grams'],
+    ['kg', 'kilograms'],
+    ['mg', 'milligrams'],
+    ['ml', 'milliliters'],
+    ['l', 'liters'],
+    ['pcs', 'pieces'],
+    ['oz', 'ounces'],
+    ['lb', 'pounds'],
+    ['tbsp', 'tablespoons'],
+  ];
 
   const [product, setProduct] = useState([]);
   useEffect(() => {
@@ -227,13 +238,20 @@ function Product() {
         <div className="bg-white shadow-md rounded-lg p-6">
           <h2 className="text-2xl font-bold mb-4 text-center">Your Fridge</h2>
           <h4 className="text-lg text-gray-500 font-medium mb-4 text-center">
-            Add your product <br/>
-            If u can't find your category, create new one
+            Add your product below. <br/>
+            Can't find matching category? Create new one!
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <input name="name" onChange={addNewProduct} value={createProduct.name} type="text" className="border p-2 rounded" placeholder="Name of the product"/>
             <input name="quantity" onChange={addNewProduct} value={createProduct.quantity} type="number" className="border p-2 rounded"placeholder="Quantity"/>
-            <input name='unit' onChange={addNewProduct} value={createProduct.unit || ''} type="text" className="border p-2 rounded" placeholder='Unit'/>
+            <select name="unit" value={createProduct.unit} onChange={addNewProduct} className="border p-2 rounded">
+              <option value="">Select unit</option>
+              {units.map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
             <select name="category" value={createProduct.category} onChange={addNewProduct} className="border p-2 rounded">
               <option value="">Select a category</option>
               {categories.map((category) => (

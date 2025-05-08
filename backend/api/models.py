@@ -2,17 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 
-UNITS = [
-    ('g', 'grams'),
-    ('kg', 'kilograms'),
-    ('mg', 'miligrams'),
-    ('ml', 'mililiters'),
-    ('l', 'liters'),
-    ('pcs', 'pieces'),
-    ('oz', 'ounce'),
-    ('lb', 'pound'),
-]
-
 class User(AbstractUser):
     username = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
@@ -45,8 +34,7 @@ class Product(models.Model):
     addDate = models.DateTimeField(auto_now_add=True)
     expirationDate = models.DateTimeField()
     quantity = models.FloatField()
-    unit = models.CharField(max_length=100, choices=UNITS, default='pcs')
-    category = models.CharField(max_length=200)
+    unit = models.CharField(max_length=100, default='pcs')
     opened = models.BooleanField(default=False)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     
