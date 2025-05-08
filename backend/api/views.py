@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from api.models import User, Product
-from api.serializer import UserSerializer, MyTokenSerializer, RegisterSerializer, ProductaSerializer
+from api.models import User, Product, Category
+from api.serializer import UserSerializer, MyTokenSerializer, RegisterSerializer, ProductaSerializer, CategorySerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import generics, status
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -33,6 +33,20 @@ class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = [AllowAny]
     serializer_class = RegisterSerializer
+    
+class CategoryView(generics.ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    
+@api_view(['POST'])
+def createCategory(request):
+    name = request.data.get('name')
+    if not name:
+        return Response({'error': 'Category name is required'}, status=status.HTTP_400_BAD_REQUEST)
+    if Category.objects.filter(name=name).exists():
+        return Response({'error': 'Category already exists'}, status=status.HTTP_400_BAD_REQUEST)
+    category = Category.objects.create(name=name)
+    return Response({'id': category.id, 'name': category.name}, status=status.HTTP_201_CREATED)
     
 @api_view(['GET'])
 def getRoutes(request):

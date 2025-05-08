@@ -3,12 +3,14 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 
 UNITS = [
-    ('g', 'gramy'),
-    ('kg', 'kilogramy'),
-    ('ml', 'mililitry'),
-    ('l', 'litry'),
-    ('szt', 'sztuki'),
-    ('opak', 'opakowanie'),
+    ('g', 'grams'),
+    ('kg', 'kilograms'),
+    ('mg', 'miligrams'),
+    ('ml', 'mililiters'),
+    ('l', 'liters'),
+    ('pcs', 'pieces'),
+    ('oz', 'ounce'),
+    ('lb', 'pound'),
 ]
 
 class User(AbstractUser):
@@ -31,19 +33,25 @@ class Profile(models.Model):
     def __str__(self):
         return self.full_name
     
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+    
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     addDate = models.DateTimeField(auto_now_add=True)
     expirationDate = models.DateTimeField()
     quantity = models.FloatField()
-    unit = models.CharField(max_length=100, choices=UNITS, default='szt')
+    unit = models.CharField(max_length=100, choices=UNITS, default='pcs')
     category = models.CharField(max_length=200)
     opened = models.BooleanField(default=False)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     
     def __str__(self):
         return self.name
-    
 
     
 def create_user_prof(sender, instance, created, **kwargs):

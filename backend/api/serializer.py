@@ -1,12 +1,19 @@
-from api.models import User, Product
+from api.models import User, Product, Category
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
 class ProductaSerializer(serializers.ModelSerializer):
+    category = CategorySerializer
+    
     class Meta:
         model = Product
-        fields = ['id', 'user', 'name', 'expirationDate', 'opened', 'quantity', 'unit']
+        fields = ['id', 'user', 'name', 'expirationDate', 'opened', 'quantity', 'unit', 'category']
         extra_kwargs = {
             'unit': {'required': False},
             'opened': {'required': False},

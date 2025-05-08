@@ -81,7 +81,6 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 BACKGROUND_TASK_RUN_ASYNC = True
 
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
