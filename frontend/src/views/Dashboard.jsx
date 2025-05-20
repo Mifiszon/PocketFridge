@@ -28,7 +28,7 @@ function Dashboard() {
         const soon = productResponse.data.filter((product) => {
           const exp = new Date(product.expirationDate);
           const diffDays = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
-          return diffDays >= 0 && diffDays <= 3;  // Only products expiring in the next 3 days (including today)
+          return diffDays >= 0 && diffDays <= 3;
         });
 
         const simplifiedSoon = soon.map((item) => ({
