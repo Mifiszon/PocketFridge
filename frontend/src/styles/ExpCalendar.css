@@ -1,4 +1,3 @@
-/* Zwiększ szerokość kalendarza */
 .react-calendar {
     width: 100% !important;
     max-width: none !important;
@@ -6,11 +5,11 @@
   }
   
   .react-calendar__tile {
-    border-radius: 8px;  /* Zaokrąglenie rogów kafelków */
-    padding: 10px;  /* Większy padding */
+    border-radius: 8px;
+    padding: 10px;
   }
   
   .react-calendar__month-view__weekdays {
-    font-size: 1.1rem;  /* Zwiększenie czcionki dla dni tygodnia */
+    font-size: 1.1rem;
   }
   
