@@ -11,6 +11,7 @@ function Product() {
   const token = localStorage.getItem("authTokens");
   const decoded = jwtDecode(token);
   const user_id = decoded.user_id;
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const units = [
     ['g', 'grams'],
     ['kg', 'kilograms'],
@@ -276,6 +277,17 @@ function Product() {
             </button>
           </div>
 
+          {selectedCategory && (
+            <div className="mb-4">
+              <button
+                onClick={() => setSelectedCategory(null)}
+                className="text-blue-600 underline"
+              >
+                Show all products
+              </button>
+            </div>
+          )}
+
           <div className="mt-8">
             <div className="grid grid-cols-4 font-semibold border-b pb-2 mb-2 text-gray-700">
               <span>Name | Quantity</span>
@@ -287,7 +299,9 @@ function Product() {
             {product.length === 0 ? (
               <p className="text-gray-500 mt-2">No products found</p>
             ) : (
-              product.map((product) => {
+              product
+              .filter((p) => !selectedCategory || p.category === selectedCategory)
+              .map((product) => {
                 const categoryName = categories.find((category) => category.id === product.category)?.name;
                 return (
                   <div key={product.id} className={`mb-2 grid grid-cols-4 items-center rounded py-2 shadow text-gray-800 transition duration-200 ${statusColor(product.expirationDate)}`}>
@@ -301,7 +315,7 @@ function Product() {
                     <div className={`text-right ${product.opened ? "" : ""}`}>
                       {formatDate(product.expirationDate)}
                     </div>
-                    <div className="text-right">
+                    <div className="text-right cursor-pointer text-blue-600 hover:underline" onClick={() => setSelectedCategory(product.category)}>
                       {categoryName || 'No category'}
                     </div>
                     <div className="flex justify-end gap-2">
