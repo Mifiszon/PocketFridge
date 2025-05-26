@@ -37,13 +37,9 @@ npm start
 
 ## 🔮 Future Plans
 - Mobile app (Android/iOS)
-
 - User profile customization (avatar, display name)
-
 - Product scanning via barcode or image recognition
-
 - Recipe suggestions based on near-expiring products
-- 
 - Integration with tools like Google Calendar for expiration reminders
 
 ## Author
