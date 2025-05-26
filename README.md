@@ -36,12 +36,16 @@ npm start
 ```
 
 ## 🔮 Future Plans
--Mobile app (Android/iOS)
+- Mobile app (Android/iOS)
 
--User profile customization (avatar, display name)
--Product scanning via barcode or image recognition
--Recipe suggestions based on near-expiring products
--Integration with tools like Google Calendar for expiration reminders
+- User profile customization (avatar, display name)
+
+- Product scanning via barcode or image recognition
+
+- Recipe suggestions based on near-expiring products
+- 
+- Integration with tools like Google Calendar for expiration reminders
 
 ## Author
-Michał Ogiba - bechelor degree project
+Michał Ogiba - 2025
+Bechelor Degree Project
