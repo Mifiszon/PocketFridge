@@ -218,17 +218,41 @@ function Product() {
     );
 
     if (existingCategory) {
-      Swal.fire("Category already exists!", "", "error");
+      Swal.fire({
+        title: "Category already exists!",
+        icon: "error",
+        toast: true,
+        timer: 2000,
+        position: "top",
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
     } else {
       const data = { name: newCategory };
       try {
         await api.post(baseURL + "/categories/", data);
-        Swal.fire("Category Created", "", "success");
+        Swal.fire({
+          title: "Category Created",
+          icon: "success",
+          toast: true,
+          timer: 2000,
+          position: "top",
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
         setNewCategory("");
         fetchCategories();
       } catch (error) {
         console.error(error);
-        Swal.fire("Error creating category", "", "error");
+        Swal.fire({
+          title: "Error creating category",
+          icon: "error",
+          toast: true,
+          timer: 2000,
+          position: "top",
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
       }
     }
   };
