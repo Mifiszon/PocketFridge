@@ -3,11 +3,13 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 
+#serializer do kategorii
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
 
+#serializer do produktu - dane o produkcie + kategoria
 class ProductaSerializer(serializers.ModelSerializer):
     category = CategorySerializer
     
@@ -20,11 +22,13 @@ class ProductaSerializer(serializers.ModelSerializer):
         }
 
 
+#serializer uzytkownika z kluczowymi polami
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email']
-        
+
+#dodatkowe dane z profilu do tokenu JWT        
 class MyTokenSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -38,7 +42,8 @@ class MyTokenSerializer(TokenObtainPairSerializer):
         token['verified'] = user.profile.verified
         
         return token
-    
+
+#tworzenie konta uzytkownika + walidacja    
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only = True, required = True, validators = [validate_password])
     password2 = serializers.CharField(write_only = True, required = True)

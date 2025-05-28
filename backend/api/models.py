@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 
+#rozszerzenie klasy usera
 class User(AbstractUser):
     username = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
@@ -11,7 +12,8 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
-    
+ 
+#klasa profilu dla usera     
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=255)
@@ -21,13 +23,15 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.full_name
-    
+
+#klasa kategorii dla produktu    
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
-    
+
+#klasa pojedynczego produktu powiazana z uzytkownikiem i kategoria
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
@@ -49,5 +53,6 @@ def create_user_prof(sender, instance, created, **kwargs):
 def save_user_prof(sender, instance, **kwargs):
     instance.profile.save()
 
+#automatyczne tworzenia usera
 post_save.connect(create_user_prof, sender=User)
 post_save.connect(save_user_prof, sender=User)

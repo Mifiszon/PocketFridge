@@ -4,6 +4,7 @@ from datetime import timedelta
 from django.utils import timezone
 from .models import Product
 
+#reminder z lita produktów z data do 3 dni od dzis + grupowanie produktów po uzytkowniku
 def send_expiry_reminder_email():
     now = timezone.now()
     today = now.date()
@@ -34,6 +35,7 @@ def send_expiry_reminder_email():
         send_mail(subject, message, from_email, recipient_list)
 
 
+#test
 def send_test_email():
     subject = 'Test'
     message = 'Test'
