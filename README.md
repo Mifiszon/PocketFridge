@@ -43,4 +43,6 @@ npm start
 - Integration with tools like Google Calendar for expiration reminders
 
 ## Author
-Michał Ogiba - 2025 - Bechelor Degree Project
+Michał Ogiba - 2025
+
+Bechelor Degree Project
