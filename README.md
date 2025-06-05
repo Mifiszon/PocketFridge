@@ -32,7 +32,7 @@ python manage.py runserver
 
 cd frontend
 npm install
-npm start
+npm run dev
 ```
 
 ## Future Plans
