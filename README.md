@@ -35,7 +35,7 @@ npm install
 npm run dev
 ```
 
-## Future Plans
+## Future Development Plans
 - Mobile app (Android/iOS)
 - User profile customization (avatar, display name)
 - Product scanning via barcode or image recognition
