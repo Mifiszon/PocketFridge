@@ -43,6 +43,6 @@ npm run dev
 - Integration with tools like Google Calendar for expiration reminders
 
 ## Author
-Michał Ogiba - 2025
+**Michał Ogiba** - 2025
 
 Bechelor Degree Project
