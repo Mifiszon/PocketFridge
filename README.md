@@ -1,4 +1,4 @@
-# 🧊 Pocket Fridge
+# Pocket Fridge
 
 **Pocket Fridge** is a web application designed to **track food expiration dates** and **raise awareness about food waste**. With a modern interface and reminder features, the app helps users manage their household supplies more consciously.
 
