@@ -7,7 +7,7 @@
 - ✅ User registration and login with JWT authentication
 - 📋 Product list with expiration date, category, quantity, and open status
 - 📬 Email and desktop notifications for upcoming expirations
-- 📈 Waste statistics displayed on the user profile
+- 📈 Waste statistics displayed on the user profiles
 - 💡 Daily tips to reduce food waste
 - 📷 Product addition using FormData (supporting file uploads)
 - 🔐 Auth system using `AuthContext`
