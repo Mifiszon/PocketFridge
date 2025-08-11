@@ -23,8 +23,6 @@
 
 ## 📦 Local Setup
 
-### Backend (Django)
-
 ```bash
 cd backend
 python manage.py migrate
