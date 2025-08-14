@@ -35,7 +35,7 @@ npm run dev
 
 ## Future Development Plans
 - Mobile app (Android/iOS)
-- User profile customization (avatar, display name)
+- User profile customization
 - Product scanning via barcode or image recognition
 - Recipe suggestions based on near-expiring products
 - Integration with tools like Google Calendar for expiration reminders
