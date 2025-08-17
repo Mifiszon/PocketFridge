@@ -9,7 +9,7 @@
 - 📬 Email and desktop notifications for upcoming expirations
 - 📈 Waste statistics displayed on the user profiles
 - 💡 Daily tips to reduce food waste
-- 📷 Product addition using FormData (supporting file uploads)
+- 📷 Product addition using FormData
 - 🔐 Auth system using `AuthContext`
 - 🌐 HTTP requests handled with `useAxios` (auto token injection)
 
