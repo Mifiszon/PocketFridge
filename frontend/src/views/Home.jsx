@@ -59,7 +59,7 @@ function Home() {
 
           <div className="text-center mt-24">
             <h2 className="text-2xl font-medium mb-8">Why us?</h2>
-            <p className="text-lg font-semibold mb-8">Find out why our app stands out in helping you control food waste and make smarter choices.</p>
+            <p className="text-lg font-semibold mb-8">Find out why our app stands out in helping you control food waste and make smarter choices</p>
             <div className="flex flex-col md:flex-row justify-center items-center gap-8 px-4 mt-10 mb-16">
               <div className="flex flex-col items-center text-center max-w-xs">
                 <img src="/assets/reminder.png" alt="Reminders" className="w-24 h-24 mb-4" />
