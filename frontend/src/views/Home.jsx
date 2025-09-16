@@ -90,7 +90,7 @@ function Home() {
             <div className="flex justify-center gap-6">
               <button onClick={() => window.location.href = "/register"}
                 className="bg-green-600 hover:bg-green-800 text-white py-3 px-8 rounded-lg text-lg transition duration-300">
-                Zarejestruj się
+                Register
               </button>
               <button onClick={() => window.location.href = "/login"}
                 className="bg-neutral-100 border-1 border-neutral-800 hover:bg-neutral-800 text-green-700 py-3 px-8 rounded-lg text-lg transition duration-300">
