@@ -94,7 +94,7 @@ function Home() {
               </button>
               <button onClick={() => window.location.href = "/login"}
                 className="bg-neutral-100 border-1 border-neutral-800 hover:bg-neutral-800 text-green-700 py-3 px-8 rounded-lg text-lg transition duration-300">
-                Zaloguj się
+                Login
               </button>
             </div>
           </div>
